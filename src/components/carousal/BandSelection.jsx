@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
+import { setBand } from "@/redux/slices/watchSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { collections } from "@/data/collections";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -11,7 +12,6 @@ const BandSlider = () => {
   const containerRef = useRef(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
-  const [isScrolling, setIsScrolling] = useState(false);
   const scrollTimeout = useRef(null);
   const [slideWidth, setSlideWidth] = useState(550);
 
@@ -23,14 +23,6 @@ const BandSlider = () => {
     (bandCategory) => bandCategory.variations
   );
 
-  const calculateSlideWidth = () => {
-    if (typeof window === "undefined") return 550;
-    const vw = window.innerWidth;
-    if (vw < 640) return vw - 32;
-    if (vw < 768) return 500;
-    return 550;
-  };
-
   useEffect(() => {
     const updateWidth = () => {
       setSlideWidth(calculateSlideWidth());
@@ -39,14 +31,6 @@ const BandSlider = () => {
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
-
-  const handleScroll = () => {
-    if (containerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-      setShowLeftButton(scrollLeft > 0);
-      setShowRightButton(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  };
 
   const getCurrentIndex = () => {
     if (!containerRef.current) return 0;
@@ -66,111 +50,34 @@ const BandSlider = () => {
     });
   };
 
-  const handleNavigationClick = (direction, event) => {
-    if (isScrolling) return;
-
-    setIsScrolling(true);
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-    }
-
-    const currentIndex = getCurrentIndex();
-    const newIndex = direction === "next" ? currentIndex + 1 : currentIndex - 1;
-    scrollToIndex(newIndex);
-
-    scrollTimeout.current = setTimeout(() => {
-      setIsScrolling(false);
-    }, 500);
-
-    if (event?.type === "touchstart") {
-      event.preventDefault();
-    }
-  };
-
-  const handleBandClick = (variation, mainBand) => {
-    if (isScrolling) return;
-    scrollToElement(variation.id);
-  };
-
-  const scrollToElement = (id) => {
-    if (isScrolling) return;
-
-    const selected = document.getElementById(`band-${id}`);
-    if (!selected || !containerRef.current) return;
-
-    const container = containerRef.current;
-    const containerWidth = container.offsetWidth;
-    const selectedRect = selected.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-
-    const containerCenter = containerRect.left + containerWidth / 2;
-    const elementCenter = selectedRect.left + selectedRect.width / 2;
-    const scrollOffset = elementCenter - containerCenter;
-
-    setIsScrolling(true);
-    container.scrollBy({
-      left: scrollOffset,
-      behavior: "smooth",
-    });
-
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-    }
-
-    scrollTimeout.current = setTimeout(() => {
-      setIsScrolling(false);
-      handleScroll();
-    }, 500);
-  };
-
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      handleNavigationClick("next");
-    } else if (isRightSwipe) {
-      handleNavigationClick("prev");
-    }
-
-    setTouchStart(null);
-    setTouchEnd(null);
+  const handleScroll = () => {
+    if (!containerRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
+    setShowLeftButton(scrollLeft > 0);
+    setShowRightButton(scrollLeft < scrollWidth - clientWidth - 10);
   };
 
   useEffect(() => {
     const container = containerRef.current;
+
     if (container) {
       const handleScrollEnd = () => {
         if (scrollTimeout.current) {
           clearTimeout(scrollTimeout.current);
         }
         scrollTimeout.current = setTimeout(() => {
-          setIsScrolling(false);
-          handleScroll();
+          const currentIndex = getCurrentIndex();
+          scrollToIndex(currentIndex); // Snap to nearest band
         }, 150);
       };
 
-      container.addEventListener("scroll", handleScrollEnd);
       container.addEventListener("scroll", handleScroll);
+      container.addEventListener("scroll", handleScrollEnd);
       handleScroll();
 
       return () => {
-        container.removeEventListener("scroll", handleScrollEnd);
         container.removeEventListener("scroll", handleScroll);
+        container.removeEventListener("scroll", handleScrollEnd);
         if (scrollTimeout.current) {
           clearTimeout(scrollTimeout.current);
         }
@@ -184,24 +91,30 @@ const BandSlider = () => {
     );
 
     if (selectedElement) {
-      scrollToElement(selectedElement.id);
+      scrollToIndex(allVariations.indexOf(selectedElement));
     }
   }, [currentBandImage, collection]);
 
-  useEffect(() => {
-    return () => {
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
-    };
-  }, []);
+  const handleNavigationClick = (direction) => {
+    const currentIndex = getCurrentIndex();
+    const newIndex = direction === "next" ? currentIndex + 1 : currentIndex - 1;
+    scrollToIndex(newIndex);
+  };
+
+  const calculateSlideWidth = () => {
+    if (typeof window === "undefined") return 550;
+    const vw = window.innerWidth;
+    if (vw < 640) return vw - 32;
+    if (vw < 768) return 500;
+    return 550;
+  };
 
   const calculatePadding = () => {
-    if (typeof window === "undefined") return "0 calc(50vw - 275px)";
+    if (typeof window === "undefined") return "0 calc(50vw - 283px)";
     const vw = window.innerWidth;
     if (vw < 640) return "0 16px";
     if (vw < 768) return "0 calc(50vw - 250px)";
-    return "0 calc(50vw - 275px)";
+    return "0 calc(50vw - 283px)";
   };
 
   return (
@@ -224,12 +137,8 @@ const BandSlider = () => {
           <div className="relative h-full overflow-hidden">
             {showLeftButton && (
               <button
-                onClick={(e) => handleNavigationClick("prev", e)}
-                onTouchStart={(e) => handleNavigationClick("prev", e)}
-                disabled={isScrolling}
-                className={`absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white rounded-full p-1.5 sm:p-2 shadow-lg transition-all duration-300 ${
-                  isScrolling ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                onClick={() => handleNavigationClick("prev")}
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white rounded-full p-1.5 sm:p-2 shadow-lg transition-all duration-300"
                 aria-label="Previous band"
               >
                 <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -237,12 +146,8 @@ const BandSlider = () => {
             )}
             {showRightButton && (
               <button
-                onClick={(e) => handleNavigationClick("next", e)}
-                onTouchStart={(e) => handleNavigationClick("next", e)}
-                disabled={isScrolling}
-                className={`absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white rounded-full p-1.5 sm:p-2 shadow-lg transition-all duration-300 ${
-                  isScrolling ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+                onClick={() => handleNavigationClick("next")}
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-white rounded-full p-1.5 sm:p-2 shadow-lg transition-all duration-300"
                 aria-label="Next band"
               >
                 <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -251,9 +156,6 @@ const BandSlider = () => {
             <div
               ref={containerRef}
               className="h-full overflow-x-auto whitespace-nowrap scroll-smooth hide-scrollbar touch-pan-y"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
             >
               <div
                 className="inline-block h-full"
@@ -269,10 +171,12 @@ const BandSlider = () => {
                     <div className="flex items-center justify-center h-full px-3 sm:px-12">
                       <button
                         className="relative flex items-center justify-center w-full h-full"
-                        onClick={() => handleBandClick(variation, "")}
+                        onClick={() =>
+                          scrollToIndex(allVariations.indexOf(variation))
+                        }
                       >
                         <img
-                          src={"/band1.jpeg"}
+                          src={"/band2.jpg"}
                           alt={variation.name}
                           className="w-full sm:w-[52vh] max-w-[500px] object-contain"
                         />

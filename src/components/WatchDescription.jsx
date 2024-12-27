@@ -15,7 +15,7 @@ const WatchDescription = () => {
       <span className="text-[#1d1d1f] font-semibold tracking-[-.016em] mb-[5px] overflow-hidden text-sm">
         {`${size.size} ${face.name} with ${band.name} ${band.variations[0].name}`}
       </span>
-      <span className="text-[#6e6e73] font-normal mb-[5px] tracking-[-.016em] overflow-hidden text-sm">
+      <span className="text-[#6e6e73] font-normal mb-[5px]  overflow-hidden text-sm">
         {`From $${totalPrice}`}
       </span>
     </div>

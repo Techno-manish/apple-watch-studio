@@ -52,7 +52,7 @@ const Home = () => {
                 opacity: 1,
                 y: isLanding ? "26rem" : 0,
                 scale: isLanding ? 1.5 : scaleValue,
-                top: isLanding ? -52 : "2vh",
+                top: isLanding ? -50 : "2vh",
               }}
               transition={{
                 duration: 1.2,
@@ -87,7 +87,7 @@ const Home = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.5, delay: 1.5, ease: "easeInOut" }}
-          className="m-auto flex flex-col pt-[6vh] text-center justify-center items-center font-proTextRegular text-sm leading-[1.42]"
+          className="m-auto flex flex-col pt-[2vh] text-center justify-center items-center font-proTextRegular text-sm leading-[1.42]"
         >
           <button
             onClick={() => setSideView(!sideview)}

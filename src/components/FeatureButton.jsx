@@ -17,7 +17,7 @@ const FeatureButtons = () => {
   const filteredCases = collections.find((item) => item.id === collection);
 
   return (
-    <footer className="bottom-[40px] box-border mt-[0px] md:mt-[72px] text-center whitespace-nowrap w-full">
+    <footer className="bottom-[40px] box-border mt-[0px] mb-3 md:mt-[72px] text-center whitespace-nowrap w-full">
       <div className="min-h-[35px] overflow-x-auto pb-[5px] flex justify-center w-full">
         <div className="bg-[#e8e8ed] space-x-2 rounded-full items-center flex text-[#1d1d1f] border-none mx-[6px] px-4 sm:px-6 font-proTextRegular text-[14px] sm:text-[16px] md:text-[17px] tracking-[-.022em]">
           <div className="inline-block">
