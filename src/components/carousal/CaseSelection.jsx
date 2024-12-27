@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { collections } from "@/data/collections";
-import { setFace } from "@/redux/slices/watchSlice";
+// import { setFace } from "@/redux/slices/watchSlice";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CaseSlider = () => {
@@ -14,6 +14,7 @@ const CaseSlider = () => {
   const [showRightButton, setShowRightButton] = useState(true);
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollTimeout = useRef(null);
+  const [scrollWidth, setScrollWidth] = useState(312);
 
   const { currentCaseImage, currentBandImage, size, collection } = useSelector(
     (state) => state.watch
@@ -35,14 +36,14 @@ const CaseSlider = () => {
   const getCurrentIndex = () => {
     if (!containerRef.current) return 0;
     const scrollPosition = containerRef.current.scrollLeft;
-    return Math.round(scrollPosition / 312);
+    return Math.round(scrollPosition / scrollWidth);
   };
 
   const scrollToIndex = (index) => {
     if (!containerRef.current || !allVariations) return;
     const maxIndex = allVariations.length - 1;
     const safeIndex = Math.max(0, Math.min(index, maxIndex));
-    const scrollPosition = safeIndex * 312;
+    const scrollPosition = safeIndex * scrollWidth;
 
     containerRef.current.scrollTo({
       left: scrollPosition,
@@ -197,7 +198,7 @@ const CaseSlider = () => {
           >
             <div
               className="inline-block h-full"
-              style={{ padding: "0 calc(50vw - 155px)" }}
+              style={{ padding: "0 calc(50vw - 165px)" }}
             >
               {allVariations?.map((variation) => {
                 const mainCase = collectionCases?.cases.find((c) =>
@@ -209,7 +210,7 @@ const CaseSlider = () => {
                     id={`case-${variation.id}`}
                     className="inline-block h-full align-middle"
                     key={variation.id}
-                    style={{ width: "312px" }}
+                    style={{ width: `${scrollWidth}px` }}
                   >
                     <div className="flex items-center justify-center h-full px-6">
                       <button
@@ -217,7 +218,7 @@ const CaseSlider = () => {
                         onClick={() => handleCaseClick(variation, mainCase)}
                       >
                         <img
-                          src={"/face1.png"}
+                          src={variation.image || "/face1.png"}
                           alt={variation.name}
                           className="w-[52vh] max-w-[500px] object-contain"
                         />
@@ -231,7 +232,7 @@ const CaseSlider = () => {
         </div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[53vh] max-w-[500px] w-[52vh]">
           <img
-            src={"band1.jpeg"}
+            src={currentCaseImage || "band1.jpeg"}
             alt="watch band"
             className="w-full h-full object-contain"
           />

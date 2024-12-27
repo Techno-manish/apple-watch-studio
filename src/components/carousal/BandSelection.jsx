@@ -176,7 +176,7 @@ const BandSlider = () => {
                         }
                       >
                         <img
-                          src={"/band2.jpg"}
+                          src={variation.image || "/band2.jpg"}
                           alt={variation.name}
                           className="w-full sm:w-[52vh] max-w-[500px] object-contain"
                         />

@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent } from "./ui/dialog";
+// import { Dialog, DialogContent } from "./ui/dialog";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setIsCollectionDrop } from "@/redux/slices/uiSlice";
 import { setCollection } from "@/redux/slices/watchSlice";
