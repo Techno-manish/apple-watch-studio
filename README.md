@@ -34,3 +34,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+src/
+├── app/
+│ ├── layout.js # Wraps the app with Redux provider
+│ ├── page.js # Your main page (or other routes)
+│ ├── styles/
+│ │ └── globals.css # Tailwind global CSS
+├── components/ # Your components (e.g., WatchSelector.js)
+│ └── WatchSelector.js # Example component
+├── redux/ # Redux store and slices
+│ ├── store.js # Redux store setup
+│ └── slices/
+│ └── watchSlice.js # Example slice
+├── public/ # Static assets (images, etc.)
+└── package.json # Dependencies and scripts
