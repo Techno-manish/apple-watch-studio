@@ -74,21 +74,14 @@ export const watchSlice = createSlice({
       const collection = collections.find((c) => c.id === state.collection);
       if (!collection) return;
 
-      const newBand = collection.bands.find(
-        (b) => b.id === action.payload.bandId
-      );
+      const newBand = collection.bands.find((b) => b.id === action.payload.id);
       if (!newBand) return;
-
-      const selectedVariation = newBand.variations.find(
-        (variation) => variation.id === action.payload.variationId
-      );
-      if (!selectedVariation) return;
 
       state.band = newBand;
       state.totalPrice =
         state.face.variations[0].price +
-        selectedVariation.price +
-        collection.sizes.find((s) => s.size === state.size.size)?.price;
+        newBand.variations[0].price +
+        (collection.sizes.find((s) => s.size === state.size.size)?.price || 0);
     },
 
     setView: (state, action) => {
