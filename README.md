@@ -1,5 +1,65 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Installation Instructions
+
+To set up the project locally, follow the steps below:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/apple-watch-studio.git
+   cd apple-watch-studio
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Directory Structure
+
+```
+src/
+├── app/
+│   ├── layout.js          # Wraps the app with Redux provider
+│   ├── page.js            # Your main page (or other routes)
+│   ├── styles/
+│       └── globals.css    # Tailwind global CSS
+├── components/            # Your components (e.g., WatchSelector.js)
+│   ├── carousel/          # Carousel components
+│   ├── ui/                # UI-specific components
+├── redux/                 # Redux store and slices
+│   ├── store.js           # Redux store setup
+│   └── slices/
+│       ├── watchSlice.js  # Example slice
+│       └── uiSlice.js
+├── public/                # Static assets (images, etc.)
+├── data/                  # Static data
+├── hooks/                 # Custom hooks
+├── lib/                   # Utility functions or libraries
+├── pages/                 # Legacy pages directory (if used)
+└── package.json           # Dependencies and scripts
+```
+
 ## Getting Started
 
 First, run the development server:
@@ -35,17 +95,111 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-src/
-├── app/
-│ ├── layout.js # Wraps the app with Redux provider
-│ ├── page.js # Your main page (or other routes)
-│ ├── styles/
-│ │ └── globals.css # Tailwind global CSS
-├── components/ # Your components (e.g., WatchSelector.js)
-│ └── WatchSelector.js # Example component
-├── redux/ # Redux store and slices
-│ ├── store.js # Redux store setup
-│ └── slices/
-│ └── watchSlice.js # Example slice
-├── public/ # Static assets (images, etc.)
-└── package.json # Dependencies and scripts
+# **Apple Watch Studio UI Frontend Development**
+
+### **Objective**
+
+The goal of this project is to create a **pixel-perfect** clone of the Apple Watch Studio experience. The project focuses on replicating the seamless **customization** process demonstrated on [Apple Watch Studio](https://www.apple.com/shop/studio/apple-watch), ensuring that all functionalities and visual details are carefully matched.
+
+---
+
+### **Pages to Clone**
+
+1. **Apple Watch Studio Landing Page**
+2. **Apple Watch Customization Workflow**
+   - Case Selection
+   - Size Selection
+   - Band Selection
+   - Collection Switching
+
+---
+
+### **Reference Images**
+
+Here are some reference images from the Apple Watch Studio:
+
+![image1](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/12d70107-64c8-4adf-8e5b-3e5a5229b4ff/image.png)
+![image2](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/68f8f7b4-7e59-48ed-8243-03caaec07c16/image.png)
+![image3](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/ff463570-f964-4994-81f5-8d2328cbce8e/image.png)
+![image4](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/4510b456-24b9-4113-91b8-86c706ebfeb2/image.png)
+![image5](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/b9649625-98a4-4cea-ba42-77b8aa097344/image.png)
+![image6](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/311aeed6-4d84-4310-97ca-f1bba5a00569/image.png)
+![image7](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/e12e6104-4430-47c4-9e68-d36240c2348b/image.png)
+
+---
+
+### **Key Features to Implement**
+
+#### **1. Case Selection**
+
+- Implement an interactive grid for available Apple Watch cases in various materials (e.g., Aluminum, Titanium).
+- Add hover effects for a sleek and responsive experience.
+- Ensure the watch preview updates in real-time based on the selected case.
+
+#### **2. Size Selection**
+
+- Add interactive toggles for selecting watch sizes (e.g., 42mm, 46mm).
+- Dynamically update the displayed price and product description based on size selection.
+
+#### **3. Band Selection**
+
+- Create an interactive carousel for scrolling through band options, including various styles and colors.
+- Ensure the watch preview dynamically updates based on the selected band.
+- Organize band types (e.g., Solo Loop, Braided Solo Loop) for easy selection.
+
+#### **4. Collection Switching**
+
+- Implement a dropdown or modal to switch between different collections (e.g., Series 10, Hermès, SE).
+- Ensure smooth transitions between collections, updating relevant options dynamically.
+
+#### **5. Real-Time Price Updates**
+
+- Dynamically calculate and display the total price of the watch configuration as selections are made.
+
+#### **6. Save and Share Functionality**
+
+- Add a **Save** button to allow users to save their customized configuration as an image or URL.
+- Include shareable links for social media platforms.
+
+#### **7. Animations and User Experience**
+
+- Add subtle animations to enhance the user experience:
+  - Smooth transitions.
+  - Hover effects.
+  - Loading spinners during interactions.
+
+---
+
+### **Design Requirements**
+
+- **Pixel-Perfect Precision:**
+  - Replicate the Apple Watch Studio's aesthetic with exact details (fonts, spacing, margins, colors, animations).
+- **Interactive and Responsive:**
+
+  - Ensure the UI is fully functional across desktop, tablet, and mobile devices.
+
+- **High Performance:**
+
+  - Focus on smooth interactions and fast loading times.
+
+- **Accessibility:**
+  - Implement accessible design principles (e.g., ARIA roles, keyboard navigation).
+
+---
+
+### **Expected Output**
+
+#### **1. Deployment Link**
+
+- Host the project on a platform like **Vercel** or **Netlify**.
+- The deployment should be publicly accessible.
+
+#### **2. GitHub Repository**
+
+- Share a **public GitHub repository** link for the project.
+- The repo should include a detailed README explaining setup, features, and implementation.
+
+#### **3. Loom Walkthrough**
+
+- Record a **5-minute Loom video** demonstrating the implementation process.
+- Walk through key code sections and demonstrate the UI's functionality in the video.
