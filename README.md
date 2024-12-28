@@ -142,7 +142,7 @@ The goal of this project is to create a **pixel-perfect** clone of the Apple Wat
 
 - Dynamically calculate and display the total price of the watch configuration as selections are made.
 
-#### **7. Animations and User Experience**
+#### **6. Animations and User Experience**
 
 - Add subtle animations to enhance the user experience:
   - Smooth transitions.
