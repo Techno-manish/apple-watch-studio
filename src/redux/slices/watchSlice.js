@@ -1,5 +1,5 @@
 // src/redux/slices/watchSlice.js
-"use client";
+// "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
 import { collections } from "../../data/collections";

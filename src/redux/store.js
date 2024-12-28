@@ -1,5 +1,5 @@
 // src/redux/store.js
-"use client";
+// "use client";
 
 import { configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";

@@ -7,7 +7,7 @@ To set up the project locally, follow the steps below:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/apple-watch-studio.git
+   git clone https://github.com/Techno-manish/apple-watch-studio.git
    cd apple-watch-studio
    ```
 

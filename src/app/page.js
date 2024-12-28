@@ -1,7 +1,7 @@
 // app/page.js
 "use client";
 
-import Home from "@/pages/Home";
+import Home from "@/views/Home";
 
 export default function HomePage() {
   return (
