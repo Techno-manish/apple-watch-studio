@@ -117,10 +117,6 @@ export const watchSlice = createSlice({
 
       const newBand = collection.bands.find((b) => b.id === action.payload.id);
       if (!newBand) return;
-      console.log("thisbandImage", this.bandImage);
-      console.log("newbandImage", newBand.image);
-
-      console.log("bandImage", state.bandImage);
 
       state.band = newBand;
       state.bandImage = newBand.image;

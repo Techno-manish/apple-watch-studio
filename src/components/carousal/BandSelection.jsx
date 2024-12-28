@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
-import { setBandImage } from "@/redux/slices/watchSlice";
+import { setBand } from "@/redux/slices/watchSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { collections } from "@/data/collections";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -91,7 +91,7 @@ const BandSlider = () => {
     const selectedElement = allVariations?.find(
       (variation) => variation.image === bandImage
     );
-    setBandImage(selectedElement);
+    setBand(selectedElement);
     if (selectedElement) {
       scrollToIndex(allVariations.indexOf(selectedElement));
     }
@@ -121,7 +121,7 @@ const BandSlider = () => {
 
   const handleStoreBandUpdate = (variation) => {
     // console.log("check band click", variation);
-    dispatch(setBandImage(variation));
+    dispatch(setBand(variation));
   };
 
   return (
