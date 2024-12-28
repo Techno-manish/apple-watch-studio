@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# Live Link: [Click here to visit](https://applwatch-decmk2024.netlify.app/)
+
 ## Installation Instructions
 
 To set up the project locally, follow the steps below:
