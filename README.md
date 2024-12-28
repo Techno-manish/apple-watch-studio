@@ -58,7 +58,7 @@ src/
 ├── data/                  # Static data
 ├── hooks/                 # Custom hooks
 ├── lib/                   # Utility functions or libraries
-├── pages/                 # Legacy pages directory (if used)
+├── views/                 # Legacy pages directory (if used)
 └── package.json           # Dependencies and scripts
 ```
 
