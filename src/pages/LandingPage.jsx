@@ -2,9 +2,9 @@
 
 // pages/index.js
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/Button"; // Adjust based on your actual path
-import { useAppDispatch } from "@/lib/hooks"; // Adjust based on your actual path
-import { setLanding } from "@/redux/slices/uiSlice"; // Adjust based on your actual path
+import { Button } from "../components/ui/Button"; // Adjust based on your actual path
+import { useAppDispatch } from "../lib/hooks"; // Adjust based on your actual path
+import { setLanding } from "../redux/slices/uiSlice"; // Adjust based on your actual path
 
 export default function LandingPage() {
   const dispatch = useAppDispatch();

@@ -53,7 +53,7 @@ export const watchSlice = createSlice({
 
       state.size = action.payload;
       state.totalPrice =
-        state.face.variations[0].price +
+        (state.face.price || 0) +
         state.band.variations[0].price +
         sizeConfig.price;
     },
@@ -106,7 +106,7 @@ export const watchSlice = createSlice({
 
       state.band = newBand;
       state.totalPrice =
-        state.face.variations[0].price +
+        (state.face.price || 0) +
         action.payload.price +
         (collection.sizes.find((s) => s.size === state.size.size)?.price || 0);
     },

@@ -3,16 +3,16 @@
 
 import { useEffect, useState } from "react";
 import LandingPage from "./LandingPage";
-import { Header } from "@/components/Header";
+import { Header } from "../components/Header";
 import { motion } from "framer-motion";
 import { useAppSelector } from "../lib/hooks"; // Adjust path if necessary
 import { CollectionDrop } from "../components/CollectionDrop";
 import WatchDescription from "../components/WatchDescription";
-import FeatureButtons from "@/components/FeatureButton";
-import SizeSelection from "@/components/carousal/SizeSelection";
+import FeatureButtons from "../components/FeatureButton";
+import SizeSelection from "../components/carousal/SizeSelection";
 import useHeightScale from "../hooks/useHeightScale";
-import CaseSelection from "@/components/carousal/CaseSelection";
-import BandSelection from "@/components/carousal/BandSelection";
+import CaseSelection from "../components/carousal/CaseSelection";
+import BandSelection from "../components/carousal/BandSelection";
 
 const Home = () => {
   const [currentFace, setCurrentFace] = useState("/face1.png");
