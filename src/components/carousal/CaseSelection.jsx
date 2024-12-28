@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { collections } from "@/data/collections";
-// import { setFace } from "@/redux/slices/watchSlice";
+import { setCase } from "@/redux/slices/watchSlice";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CaseSlider = () => {
@@ -68,15 +68,10 @@ const CaseSlider = () => {
     }, 500); // Prevent rapid clicks for 500ms
   };
 
-  const handleCaseClick = (variation, mainCase) => {
+  const handleCaseClick = (variation) => {
     if (isScrolling) return;
 
-    // dispatch(
-    //   setFace({
-    //     subCase: variation,
-    //     mainCase,
-    //   })
-    // );
+    dispatch(setCase(variation));
     scrollToElement(variation.id);
   };
 
@@ -215,7 +210,7 @@ const CaseSlider = () => {
                     <div className="flex items-center justify-center h-full px-6">
                       <button
                         className="relative flex items-center justify-center w-full h-full"
-                        onClick={() => handleCaseClick(variation, mainCase)}
+                        onClick={() => handleCaseClick(variation)}
                       >
                         <img
                           src={variation.image || "/face1.png"}
@@ -232,7 +227,7 @@ const CaseSlider = () => {
         </div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[53vh] max-w-[500px] w-[52vh]">
           <img
-            src={currentCaseImage || "band1.jpeg"}
+            src={currentBandImage || "band1.jpeg"}
             alt="watch band"
             className="w-full h-full object-contain"
           />

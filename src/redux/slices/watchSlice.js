@@ -57,10 +57,13 @@ export const watchSlice = createSlice({
     },
 
     setFace: (state, action) => {
+      console.log("action", action);
       const collection = collections.find((c) => c.id === state.collection);
+      console.log("collection", collection || "N/A");
       if (!collection) return;
 
       const newCase = collection.cases.find((c) => c.id === action.payload.id);
+      console.log("newCase", newCase || "N/A");
       if (!newCase) return;
 
       state.face = newCase;
@@ -70,17 +73,57 @@ export const watchSlice = createSlice({
         collection.sizes.find((s) => s.size === state.size.size)?.price;
     },
 
+    setCase: (state, action) => {
+      console.log("action", action.payload);
+      const collection = collections.find((c) => c.id === state.collection);
+      console.log("collection", collection || "N/A");
+      if (!collection) return;
+
+      const newCase = collection.cases.find((each) =>
+        each.variations.find((variation) => variation.id === action.payload.id)
+      );
+
+      // const newCase = collection.cases.find((c) => c.id === action.payload.id);
+      console.log("newCase", newCase || "N/A");
+      if (!newCase) return;
+
+      state.face = newCase.variations.find(
+        (variation) => variation.id === action.payload.id
+      );
+      state.totalPrice =
+        action.payload.price +
+        (state.band.price || 0) +
+        (collection.sizes.find((s) => s.size === state.size.size)?.price || 0);
+    },
+
     setBand: (state, action) => {
+      const collection = collections.find((c) => c.id === state.collection);
+      if (!collection) return;
+
+      const newBand = collection.bands.find((each) =>
+        each.variations.find((variation) => variation.id === action.payload.id)
+      );
+
+      // const newBand = collection.bands.find((b) => b.id === action.payload.id);
+      if (!newBand) return;
+
+      state.band = newBand;
+      state.totalPrice =
+        state.face.variations[0].price +
+        action.payload.price +
+        (collection.sizes.find((s) => s.size === state.size.size)?.price || 0);
+    },
+
+    setCurrentBand: (state, action) => {
       const collection = collections.find((c) => c.id === state.collection);
       if (!collection) return;
 
       const newBand = collection.bands.find((b) => b.id === action.payload.id);
       if (!newBand) return;
 
-      state.band = newBand;
       state.totalPrice =
-        state.face.variations[0].price +
-        newBand.variations[0].price +
+        (state.face.price || 0) +
+        action.payload.price +
         (collection.sizes.find((s) => s.size === state.size.size)?.price || 0);
     },
 
@@ -98,7 +141,9 @@ export const {
   setCollection,
   setSize,
   setFace,
+  setCase,
   setBand,
+  setCurrentBand,
   setView,
   setActiveSection,
 } = watchSlice.actions;
