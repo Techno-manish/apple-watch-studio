@@ -142,11 +142,6 @@ The goal of this project is to create a **pixel-perfect** clone of the Apple Wat
 
 - Dynamically calculate and display the total price of the watch configuration as selections are made.
 
-#### **6. Save and Share Functionality**
-
-- Add a **Save** button to allow users to save their customized configuration as an image or URL.
-- Include shareable links for social media platforms.
-
 #### **7. Animations and User Experience**
 
 - Add subtle animations to enhance the user experience:
