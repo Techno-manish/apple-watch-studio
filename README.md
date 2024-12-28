@@ -114,20 +114,6 @@ The goal of this project is to create a **pixel-perfect** clone of the Apple Wat
 
 ---
 
-### **Reference Images**
-
-Here are some reference images from the Apple Watch Studio:
-
-![image1](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/12d70107-64c8-4adf-8e5b-3e5a5229b4ff/image.png)
-![image2](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/68f8f7b4-7e59-48ed-8243-03caaec07c16/image.png)
-![image3](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/ff463570-f964-4994-81f5-8d2328cbce8e/image.png)
-![image4](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/4510b456-24b9-4113-91b8-86c706ebfeb2/image.png)
-![image5](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/b9649625-98a4-4cea-ba42-77b8aa097344/image.png)
-![image6](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/311aeed6-4d84-4310-97ca-f1bba5a00569/image.png)
-![image7](https://prod-files-secure.s3.us-west-2.amazonaws.com/944684a5-7ddb-4adf-8e5b-3e5a5229b4ff/e12e6104-4430-47c4-9e68-d36240c2348b/image.png)
-
----
-
 ### **Key Features to Implement**
 
 #### **1. Case Selection**
