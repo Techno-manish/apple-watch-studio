@@ -16,7 +16,7 @@ const CaseSlider = () => {
   const scrollTimeout = useRef(null);
   const [scrollWidth, setScrollWidth] = useState(312);
 
-  const { currentCaseImage, currentBandImage, size, collection } = useSelector(
+  const { caseImage, bandImage, size, collection } = useSelector(
     (state) => state.watch
   );
 
@@ -136,14 +136,17 @@ const CaseSlider = () => {
   }, []);
 
   useEffect(() => {
+    let currentCaseImage = caseImage;
     const selectedElement = allVariations?.find(
-      (variation) => variation.image === currentCaseImage
+      (variation) => variation.image === caseImage
     );
+
+    dispatch(setCase(selectedElement));
 
     if (selectedElement) {
       scrollToElement(selectedElement.id);
     }
-  }, [currentCaseImage, collection]);
+  }, [caseImage, collection]);
 
   useEffect(() => {
     return () => {
@@ -227,7 +230,7 @@ const CaseSlider = () => {
         </div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 z-0 h-[53vh] max-w-[500px] w-[52vh]">
           <img
-            src={currentBandImage || "band1.jpeg"}
+            src={bandImage || "band1.jpeg"}
             alt="watch band"
             className="w-full h-full object-contain"
           />

@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
-import { setBand } from "@/redux/slices/watchSlice";
+import { setBandImage } from "@/redux/slices/watchSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { collections } from "@/data/collections";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -15,8 +15,10 @@ const BandSlider = () => {
   const scrollTimeout = useRef(null);
   const [slideWidth, setSlideWidth] = useState(550);
 
-  const { currentCaseImage, currentBandImage, size, collection } =
-    useAppSelector((state) => state.watch);
+  const { caseImage, bandImage, size, collection } = useAppSelector(
+    (state) => state.watch
+  );
+  // console.log("Current bandImage:", bandImage || "No band image set");
 
   const collectionBands = collections.find((col) => col.id === collection);
   const allVariations = collectionBands?.bands.flatMap(
@@ -87,13 +89,13 @@ const BandSlider = () => {
 
   useEffect(() => {
     const selectedElement = allVariations?.find(
-      (variation) => variation.image === currentBandImage
+      (variation) => variation.image === bandImage
     );
-
+    setBandImage(selectedElement);
     if (selectedElement) {
       scrollToIndex(allVariations.indexOf(selectedElement));
     }
-  }, [currentBandImage, collection]);
+  }, [bandImage, collection]);
 
   const handleNavigationClick = (direction) => {
     const currentIndex = getCurrentIndex();
@@ -117,6 +119,11 @@ const BandSlider = () => {
     return "0 calc(50vw - 283px)";
   };
 
+  const handleStoreBandUpdate = (variation) => {
+    // console.log("check band click", variation);
+    dispatch(setBandImage(variation));
+  };
+
   return (
     <AnimatePresence>
       <motion.div
@@ -129,7 +136,7 @@ const BandSlider = () => {
         <div className="relative h-[53vh] max-h-[508px] min-h-[314px] w-full m-auto z-0">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 h-full w-full max-w-[500px] sm:w-[52vh] px-4 sm:px-0">
             <img
-              src={currentCaseImage || "/face1.png"}
+              src={caseImage || "/face1.png"}
               alt="watch face"
               className="w-full h-full object-contain"
             />
@@ -171,9 +178,10 @@ const BandSlider = () => {
                     <div className="flex items-center justify-center h-full px-3 sm:px-12">
                       <button
                         className="relative flex items-center justify-center w-full h-full"
-                        onClick={() =>
-                          scrollToIndex(allVariations.indexOf(variation))
-                        }
+                        onClick={() => {
+                          scrollToIndex(allVariations.indexOf(variation));
+                          handleStoreBandUpdate(variation);
+                        }}
                       >
                         <img
                           src={variation.image || "/band2.jpg"}

@@ -13,7 +13,9 @@ const initialState = {
   collection: defaultCollection.id,
   size: defaultSize,
   face: defaultCase,
+  caseImage: defaultCase.variations[0].image,
   band: defaultBand,
+  bandImage: defaultBand.variations[0].image,
   totalPrice:
     defaultCase.variations[0].price +
     defaultBand.variations[0].price +
@@ -57,13 +59,10 @@ export const watchSlice = createSlice({
     },
 
     setFace: (state, action) => {
-      console.log("action", action);
       const collection = collections.find((c) => c.id === state.collection);
-      console.log("collection", collection || "N/A");
       if (!collection) return;
 
       const newCase = collection.cases.find((c) => c.id === action.payload.id);
-      console.log("newCase", newCase || "N/A");
       if (!newCase) return;
 
       state.face = newCase;
@@ -74,9 +73,7 @@ export const watchSlice = createSlice({
     },
 
     setCase: (state, action) => {
-      console.log("action", action.payload);
       const collection = collections.find((c) => c.id === state.collection);
-      console.log("collection", collection || "N/A");
       if (!collection) return;
 
       const newCase = collection.cases.find((each) =>
@@ -84,12 +81,12 @@ export const watchSlice = createSlice({
       );
 
       // const newCase = collection.cases.find((c) => c.id === action.payload.id);
-      console.log("newCase", newCase || "N/A");
       if (!newCase) return;
 
       state.face = newCase.variations.find(
         (variation) => variation.id === action.payload.id
       );
+      state.caseImage = action.payload.image;
       state.totalPrice =
         action.payload.price +
         (state.band.price || 0) +
@@ -114,12 +111,19 @@ export const watchSlice = createSlice({
         (collection.sizes.find((s) => s.size === state.size.size)?.price || 0);
     },
 
-    setCurrentBand: (state, action) => {
+    setBandImage: (state, action) => {
       const collection = collections.find((c) => c.id === state.collection);
       if (!collection) return;
 
       const newBand = collection.bands.find((b) => b.id === action.payload.id);
       if (!newBand) return;
+      console.log("thisbandImage", this.bandImage);
+      console.log("newbandImage", newBand.image);
+
+      console.log("bandImage", state.bandImage);
+
+      state.band = newBand;
+      state.bandImage = newBand.image;
 
       state.totalPrice =
         (state.face.price || 0) +
@@ -143,7 +147,7 @@ export const {
   setFace,
   setCase,
   setBand,
-  setCurrentBand,
+  setBandImage,
   setView,
   setActiveSection,
 } = watchSlice.actions;
