@@ -1,5 +1,5 @@
 // src/redux/slices/uiSlice.js
-"use client";
+// "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
 
